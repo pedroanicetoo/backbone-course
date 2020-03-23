@@ -1,47 +1,22 @@
+var Song = Backbone.Model.extend();
 
+var Songs = Backbone.Collection.extend({
+	Model: Song
+});
 
+var songs = new Songs([
+		new Song({ title: "Song 1"}),
+		new Song({ title: "Song 2"}),
+		new Song({ title: "Song 3"})
+]);
 
-// INHERITANCE
+songs.add(new Song({ title: "Song 4" }));
 
-// var Animal = Backbone.Model.extend({
-// 	walk: function(){
-// 		console.log("Animal walking...");
-// 	}
-// });
+//get specific model by client id
+var firstSong = songs.at(0);
 
-// var Dog = Animal.extend({
-// 	walk: function(){
-// 		Animal.prototype.walk.apply(this);
-// 		console.log("Dog walking...")
-// 	}
-// });
+//get specific model by cid
+var songWithIdC1 = songs.get("c1");
 
-// var dog = new Dog();
-
-// dog.walk();
-
-// var Song = Backbone.Model.extend({
-// 	defaults: {
-// 		genre: "Jazz"
-// 	}
-// });
-// var song = new Song({
-// 	title: "Blue in Green",
-// 	artist: "Miles Davis",
-// 	publishYear: 1959	
-// });
-
-// VALIDATION
-
-// var Song = Backbone.Model.extend({
-// 		validate: function(attrs) {
-// 			if(!attrs.title)
-// 					return "title is required";
-// 		}
-// });
-
-// var song = new Song();
-
-//song.isValid();
-//var lastError = song.validationError;
-
+//Remove specific model
+songs.remove(firstSong);
