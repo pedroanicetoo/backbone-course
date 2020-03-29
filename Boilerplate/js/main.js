@@ -1,25 +1,24 @@
-var Song = Backbone.Model.extend();
+var Song = Backbone.Model.extend({
+	defaults: {
+		listeners: 0
+	}
+});
 
 // var Songs = Backbone.Collection.extend({
 // 	model: Song
 // });
 
 var SongView = Backbone.View.extend({
-	events: {
-		"click": "onClick",
-		"click .bookmark": "onClickBookmark",
+	initialize: function(){
+		this.model.on("change", this.onModelChange, this);
+	},
 
-	},
-	onClick: function(){
-		console.log("Listen Clicked");
-	},
-	onClickBookmark: function(e){
-		e.stopPropagation();
-		console.log('Bookmark clicked')
+	onModelChange: function(){ // action from the view for the onChange model 
+		this.$el.addClass("someClass");
 	},
 
 	render: function() {
-			this.$el.html(this.model.get("title") + " <button>Listen </button> <button class='bookmark'>Bookmark</button>");
+			this.$el.html(this.model.get("title") + " - Listeners: "+ this.model.get("listeners"));
 			
 			return this;
 	}
@@ -43,6 +42,6 @@ var SongView = Backbone.View.extend({
 
 var song = new Song({ title: "Blue and Green" });
 
-var songsView = new SongView({ el: "#container", model: song });
+var songView = new SongView({ el: "#container", model: song });
 
-songsView.render();
+songView.render();
