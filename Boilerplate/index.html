@@ -15,11 +15,21 @@
     </head>
     <body>
 
-        <div id="songs"></div>
+        <div id="container"></div>
 
         <script src="js/lib/jquery-min.js"></script>
         <script src="js/lib/underscore-min.js"></script>
         <script src="js/lib/backbone-min.js"></script>
+
+        <script id="songTemplate" type="text/html">
+            <%= title %>
+            <button>Listen</button>
+            <% if (plays > 1000) { %>
+                <span class="popular">Popular</span>
+            <% } %>
+        </script>
+
+
         <script src="js/main.js"></script>
     </body>
 </html>
